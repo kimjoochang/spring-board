@@ -1,4 +1,4 @@
 package joochang.project.board;
 
-public class Controller {
+public class BoardService {
 }
