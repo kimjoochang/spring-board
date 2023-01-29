@@ -1,6 +1,8 @@
 package joochang.project.member;
 
+import joochang.project.domain.Address;
 import joochang.project.domain.Member;
+import joochang.project.web.MemberForm;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ class MemberServiceTest {
 
     @Test
     @Transactional
-    void join() {
+    void join() throws Exception{
 
         //given
         Member member = new Member();
@@ -33,7 +35,7 @@ class MemberServiceTest {
 
     @Test
     @Transactional
-    void joinException() {
+    void joinDuplicateException() throws Exception{
         //given
         Member m1 = new Member();
         m1.updateMemberNameInfo("test");
@@ -52,7 +54,71 @@ class MemberServiceTest {
 
     @Test
     @Transactional
-    void findMembers() {
+    void joinEmailValidateException() throws Exception {
+        //given
+        Member m1 = new Member();
+        MemberForm mf = new MemberForm();
+        Address address = new Address();
+
+
+
+        mf.setId("test");
+        mf.setName("test");
+        mf.setPassword("test");
+        mf.setPhoneNumber("01012341234");
+        mf.setEmail("emial");
+
+        address.setPostcode(123);
+        address.setAddress1("test");
+        address.setAddress2("test");
+        //address.updateAddressInfo(address);
+        mf.setAddress(address);
+
+        //when
+        m1.insertMemberInfo(mf);
+        //memberService.join(m1);
+
+        //then
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            memberService.join(m1);
+        });
+
+
+
+    }
+
+    @Test
+    @Transactional
+    void joinNullCheckValidateException() throws Exception {
+        //given
+        Member m1 = new Member();
+        MemberForm mf = new MemberForm();
+        Address address = new Address();
+
+
+        mf.setId("test");
+        mf.setName("test");
+        mf.setPassword("test");
+        mf.setPhoneNumber("01012341234");
+        //mf.setEmail("emial");
+
+        address.setPostcode(123);
+        address.setAddress1("test");
+        address.setAddress2("test");
+        //address.updateAddressInfo(address);
+        mf.setAddress(address);
+
+        //when
+        m1.insertMemberInfo(mf);
+        memberService.join(m1);
+
+        //then
+        fail("null 오류");
+    }
+
+    @Test
+    @Transactional
+    void findMembers() throws Exception {
         //given
         Member m1 = new Member();
         m1.updateMemberNameInfo("test1");
@@ -74,7 +140,7 @@ class MemberServiceTest {
     }
 
     @Test
-    void findOne() {
+    void findOne() throws Exception {
         //given
         Member m1 = new Member();
         m1.updateMemberNameInfo("test");

@@ -1,6 +1,7 @@
 package joochang.project.domain;
 
 
+import joochang.project.web.MemberForm;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -40,6 +41,20 @@ public class Member {
     public void updateMemberNameInfo(String name) {
         this.memberNo = memberNo;
         this.name = name;
+    }
+
+    public void insertMemberInfo(MemberForm memberForm) {
+        this.id = memberForm.getId();
+
+        this.password = memberForm.getPassword();
+
+        this.name = memberForm.getName();
+
+        this.email = memberForm.getEmail();
+
+        this.phoneNumber = memberForm.getPhoneNumber();
+
+        this.address.updateAddressInfo(address);
     }
 
 }
