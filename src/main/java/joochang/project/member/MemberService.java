@@ -1,6 +1,7 @@
 package joochang.project.member;
 
 import joochang.project.domain.Member;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,12 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @Slf4j
+@AllArgsConstructor
 //@RequiredArgsConstructor
 public class MemberService {
 
-    @Autowired
     MemberRepository memberRepository;
+
 
     @Transactional
     public Long join(Member member) throws Exception {

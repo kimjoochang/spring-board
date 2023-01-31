@@ -1,4 +1,4 @@
-package joochang.project.board;
+package joochang.project.web;
 
 import org.springframework.stereotype.Controller;
 
