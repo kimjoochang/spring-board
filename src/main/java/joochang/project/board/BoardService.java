@@ -11,5 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class BoardService {
 
-    BoardRepository boardRepository;
+    private final BoardRepository boardRepository;
+
+
 }
